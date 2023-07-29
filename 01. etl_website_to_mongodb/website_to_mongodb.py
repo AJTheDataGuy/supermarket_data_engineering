@@ -19,6 +19,8 @@ Program Flow:
             regular expression. These raw JSON objects are stored as strings
         4C. Convert the list of json strings to a list of json objects
         4D. Upload the JSON data to the MongoDB database
+
+TO DO: Add better error handling
 """
 
 # Standard Library Imports
@@ -74,9 +76,6 @@ def connect_to_mongodb(
 ) -> pymongo.collection.Collection:
     """Connect to a mongo db database using the pymongo library
 
-    Returns a mongo db collection connection that
-    can further be worked with to insert documents
-
     In the future this function could return a (client, database, collection) tuple
     to work more directly with the database and client
 
@@ -85,9 +84,8 @@ def connect_to_mongodb(
     2. coll_name: collection to connect to
     3. connection_string: connection string for mongodb
 
-    While the arguments remain static for this portfolo project I have included
-    these function parameters rather than hardcoding the values in so the
-    function will be more flexible and can be reused in a future project
+    Returns:
+    1. collection: Connection a specific mongoDB collection
     """
 
     client = pymongo.MongoClient(connection_string)
@@ -117,13 +115,14 @@ def extract_single_webpage_text(single_webpage_url: str, session) -> str:
 
     Returns the raw text for further processing
 
-    Input Parameters:
-    1. url: url for which the raw text will be retrieved
+    Parameters:
+    1. single_webpage_url: url for which the raw text will be retrieved
     In the context of the Coles website this may be fruit&veg page 3,
     meat page 5, etc.
+    2. session: requests session objectfor get requests
 
-    Function Return:
-    1. Raw text including unwanted text and valuable json data
+    Returns:
+    1. raw_text_str: Raw text including unwanted text and valuable json data
     """
 
     data_from_request_str = session.get(single_webpage_url)
@@ -149,6 +148,12 @@ def compile_regex_for_json_extraction() -> Pattern[str]:
     (for example 2 for $5.00 sorts of deals)
     The JSON data returned has a slightly different schema at the end
     It appears to require a 3rd ending bracket '}' above and beyond the normal 2
+
+    Parameters: None
+
+    Returns:
+    1. json_regex: Compiled regular expression to further extract JSON data out
+    of the raw website text
     """
     json_regex = re.compile(
         r"""
@@ -164,9 +169,12 @@ def compile_regex_for_json_extraction() -> Pattern[str]:
 def convert_json_as_strings_to_json_as_objs(json_found_in_regex_list: list) -> list:
     """Purpose: Loops through a list of JSON as strings and converts them to actual JSON
 
-    Parameters: The list of json strings found by the regex function for a single webpage
+    Parameters: 
+    1. json_found_in_regex_list:
+        The list of json strings found by the regex function for a single webpage
 
-    Returns: A list of JSON objects
+    Returns: 
+    1. formatted_json_list: A list of JSON objects
     """
     errors_list = []
     formatted_json_list = []
@@ -182,6 +190,14 @@ def convert_json_as_strings_to_json_as_objs(json_found_in_regex_list: list) -> l
 def append_date_extracted_to_json(list_of_json_objs: list, date_today: str):
     """Takes a list of JSON objects and adds additional meta data
     for when the data was retrieved from the Coles website
+
+    Parameters:
+    1. list_of_json_objs: List of JSON objects found in the website raw text
+    2. date_today: today's date represented as a string
+
+    Returns
+    1. list_of_json_objs: list of JSON objects found in the raw website text
+        with additional metadata on when that JSON object was extracted
     """
     for item in list_of_json_objs:
         item["date_extracted"] = date_today
@@ -198,8 +214,22 @@ def create_paginated_webpages_list(
     based on the individual parts of a URL.
 
     Maximum page to get data from is defined as a parameter and initially set as 30
-    This is an additional safeguard to looping through the webpages with a break statement
+    This is 
+
+    Parameters:
+    1. base_url: Base part of the website to connect to
+    2. additional_url: Additional part of the website url that
+        has paginated pages - such as fruit-vegetables, etc.
+    3. pagination_str: part of the webpage url that includes how to
+        get to the next page
+    4. max_page: max page to loop up to. An additional pagination safeguard to ensure
+    requests aren't continually sent to webpages that don't exit. Safeguard is in
+    addition to looping through the webpages with a break statement
     when no json is returned
+
+    Returns:
+    1. paginated_webpages: Full list of urls that the get request
+        will loop through and grab text from on the website
     """
     template_url_str = "".join([base_url, additional_url, pagination_str])
 
