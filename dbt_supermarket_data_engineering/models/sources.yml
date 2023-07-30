@@ -1,0 +1,147 @@
+version: 2
+
+sources:
+  - name: supermarket
+    database: supermarket_data
+    schema: public
+    tables:
+      - name: raw_staging
+        description: '{{ doc("raw_staging") }}'
+        identifier: raw_supermarket_staging
+        columns:
+          - name: _id
+            description: Unique document id from MongoDB. Corresponds to one item at one specific date.
+          
+          - name: _type
+            description: Always PRODUCT.
+          
+          - name: id
+            description: Unique id of the supermarket item - carrot, appple, etc. Should remain the same every week.
+          
+          - name: adId
+            description: Unknown description - defined by Coles. Appears to always be null.
+          
+          - name: adSource
+            description: Unknown description - defined by Coles. Appears to always be null.
+          
+          - name: featured
+            description: Boolean true / false on whether the item is featured on the Coles website
+          
+          - name: name
+            description: Supermarket item name - carrots, apples, etc.
+          
+          - name: brand
+            description: Supermarket item brand - should always be Coles for fruits and vegetables
+          
+          - name: description
+            description: Item description 1 - name and sizing combined
+          
+          - name: size
+            description: Sizing associated with the current price - price.now column
+          
+          - name: availability
+            description: Boolean True / False on whether the item is available
+          
+          - name: imageUris
+            description: Unknown description - defined by Coles.
+          
+          - name: locations
+            description: Contains data for where the item is located within the Coles store. Array / Dictionary data stored as text
+          
+          - name: onlineHeirs
+            description: Contains descripton data (example - apple or carrot) for the item. Array / Dictionary data stored as text
+          
+          - name: date_extracted
+            description: Date the data was pulled from the Cole website
+          
+          - name: restrictions.retailLimit
+            description: Unknown description - defined by Coles.
+          
+          - name: restrictions.promotionalLimit
+            description: Unknown description - defined by Coles.
+          
+          - name: restrictions.liquorAgeRestrictionFlag
+            description: Boolean True / False on whether the item is age restricted (for liquor). Should always be false for fruits and vegetables
+          
+          - name: restrictions.tobaccoAgeRestrictionFlag
+            description: Boolean True / False on whether the item is age restricted (for tobacco). Should always be false for fruits and vegetables
+          
+          - name: restrictions.restrictedByOrganisation
+            description: Unknown description - defined by Coles.
+          
+          - name: restrictions.delivery
+            description: Unknown description - defined by Coles.
+          
+          - name: merchandiseHeir.tradeProfitCentre
+            description: Item definition 2 - appears to always be FRESH PROD
+          
+          - name: merchandiseHeir.categoryGroup
+            description: Item Description 3 - whether the item is a fruit or vegetable / salad
+          
+          - name: merchandiseHeir.category
+            description: Item Description 4 - broad item category such as whether the item is a soft or hard vegetable
+          
+          - name: merchandiseHeir.subCategory
+            description: Item Description 5- more defined item definiton such as whether the item is an apple or pumpkin
+          
+          - name: merchandiseHeir.className
+            description: Item Description 6- Narrowest item definition - for example whether an apple is a pink lady or gala type. Contains some redundant data with the merchandiseHeir.subCategory column
+          
+          - name: price.now
+            description: Current price in $AUD. Size for current price is given in the size column and the pricing.unit.quantity and pricing.unit.ofMeasureQuantity columns
+          
+          - name: price.was
+            description: Should be previous price in $AUD but always listed as 0. May not be used.
+          
+          - name: pricing.unit.quantity
+            description: Appears to represent the size (numeric quantity in $AUD) associated with the price.now column but does not always appear to be accurate. The size columns appears to be more accurate. Associated with unit in the pricing.unit.ofMeasureUnit columns
+          
+          - name: pricing.unit.ofMeasureQuantity
+            description: Appears to be a multiplier for the pricing.unit.quantity column but always appears to be 1
+          
+          - name: pricing.unit.ofMeasureUnits
+            description: Appears to represent the standard pricing unit for the item but appears redundant with the pricing.unit.ofMeasureType column
+          
+          - name: pricing.unit.price
+            description: Standard basis price in $AUD for item pricing. For example, while unit may be sold in 200g, the item may be priced on a standard 1 kg size. Standard size as per the pricing.unit.ofMeasureType column.
+          
+          - name: pricing.unit.ofMeasureType
+            description: Standard basis size for item pricing. For example, while unit may be sold in 200g, the item may be priced on a standard 1 kg size. Standard price as per the pricing.unit.price column.
+          
+          - name: pricing.unit.isWeighted
+            description: Unknown description - defined by Coles.
+          
+          - name: pricing.comparable
+            description: Standard unit pricing and size. Contains redundant data from the pricing.unit.price and pricing.unit.ofMeasureType columns
+          
+          - name: pricing.onlineSpecial
+            description: Boolean True / False on whether there is an online special. Appears to always be false despite a special being present.
+          
+          - name: pricing.promotionType
+            description: Type of special - for example whether just a special or a locked in price
+          
+          - name: internalDescription
+            description: Unknown description - defined by Coles.
+          
+          - name: pricing.specialType
+            description: More detailed description for type of special such as whether it is a multi save. Data may be presnt without a corresponding value in the pricing.PromotionType column.
+          
+          - name: pricing.offerDescription
+            description: Description of the special - for example, get 2 for $5.
+          
+          - name: pricing.multiBuyPromotion.type
+            description: Type of multi buy promotion when there is a multi buy promotion
+          
+          - name: pricing.multiBuyPromotion.id
+            description: Type of multi buy promotion when there is a multi buy promotion. Appears to not be unique.
+          
+          - name: pricing.multiBuyPromotion.minQuantity
+            description: Appears to be minimum quantity of item needed to purchase to get the special
+          
+          - name: pricing.multiBuyPromotion.reward
+            description: Appears to be the amount you save (in $AUD) when using the special vs what you would normally pay.
+          
+          - name: pricing.promotionDescription
+            description: How long the promotion lasts - for example Until August 1st.
+
+            

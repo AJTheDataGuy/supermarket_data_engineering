@@ -40,7 +40,7 @@ def main():
     sql_data_type_definitions_dict = define_column_data_types_for_sql()
     postgres_connection = connect_to_postgresql()
     cleaned_data_types_df.to_sql(
-        name="raw_from_mongodb_test",
+        name="raw_supermarket_staging",
         con=postgres_connection,
         schema="public",
         if_exists="replace",
