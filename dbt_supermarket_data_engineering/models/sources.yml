@@ -42,6 +42,9 @@ sources:
           - name: availability
             description: Boolean True / False on whether the item is available
           
+          - name: availabilityType
+            description: Unknown description - defined by Coles.
+          
           - name: imageUris
             description: Unknown description - defined by Coles.
           
@@ -87,10 +90,10 @@ sources:
           - name: merchandiseHeir.className
             description: Item Description 6- Narrowest item definition - for example whether an apple is a pink lady or gala type. Contains some redundant data with the merchandiseHeir.subCategory column
           
-          - name: price.now
+          - name: pricing.now
             description: Current price in $AUD. Size for current price is given in the size column and the pricing.unit.quantity and pricing.unit.ofMeasureQuantity columns
           
-          - name: price.was
+          - name: pricing.was
             description: Should be previous price in $AUD but always listed as 0. May not be used.
           
           - name: pricing.unit.quantity

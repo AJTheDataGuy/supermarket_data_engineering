@@ -1,0 +1,120 @@
+version: 2
+
+models:
+  - name: dim_product_descriptions
+    description: '{{ doc("dim_product_descriptions") }}'
+    columns:
+      - name: product_id
+        description: Unique id of the product. Assumed to not change over time (need to add a test to check)
+      - name: product_name
+        description: name of the supermarket fruit / vegetable
+      - name: description
+        description: description of the supermarket fruit / vegetable
+      - name: fruit_or_veg
+        description: Filter text on whether the item is a fruit or vegetable
+      - name: category
+        description: Filter text on item category - hard vegetable, soft vegetable, berry etc.
+      - name: subcategory
+        description: Filter text on item subcategory - apple, pumpkin, carrots, etc. Useful filter - for example can filter to all herbs.
+      - name: detail
+        description: Filter text for detailed item description. Useful for identifying types of apples - pink lady, granny smith, etc.
+      - name: date_last_updated
+        description: Date the item was last updated. Will update rather than add a new row if the same date.
+      - name: mongodb_document_id
+        description: Document ID from the raw MongoDB data. Useful for debugging.
+
+  - name: fct_product_prices
+    description: '{{ doc("fct_product_prices") }}'
+    columns:
+      - name: price_surrogate_key
+        description: Surrogate key to represent a unique row in the table. Produced as a combination of the item id, mongodb document id, and date extracted.
+      - name: product_id
+        description: Unique id of the product. Assumed to not change over time (need to add a test to check). Foreign key for the dim_product_descriptions table.
+      - name: price_aud
+        description: Price of the item in Australian Dollars ($AUD)
+      - name: size_quantity
+        description: Quantity the item comes in with unit as per the size_unit column. For example, 200 (and then size_unit column will be in grams)
+      - name: size_unit
+        description: Unit for the associated quantity the item comes in with quantity as per the size_quantity column. For example, grams (and then size_quantity column will be in 200)
+      - name: standard_pricing_price_aud
+        description: Standard price for the item. For example, while the item may come in 200 g bunches, the standard pricing may be for a kg. This column gives the numeric price in Australian Dollars ($AUD). The standard_pricing_unit column gives the unit.
+      - name: standard_pricing_unit
+        description: Standard unit for the item. For example, while the item may come in 200 g bunches, the standard pricing may be for a kg. This column gives the standard unit. The standard_pricing_price_aud column gives the standard price in Australian Dollars ($AUD).
+      - name: check_for_standard_pricing_units_aud
+        description: Full text combining the standard_pricing_price_aud and standard_pricing_unit columns and used for quality checking. Used to check the veracity of the standard unit - this sometimes disagrees with the actual (price_aud column) pricing. For example, sometimes says g but should be kg.
+      - name: pricing_date
+        description: Date the item price data was retrieved
+      - name: mongodb_document_id
+        description: Document ID from the raw MongoDB data. Useful for debugging.
+
+  - name: fct_product_specials
+    description: '{{ doc("fct_product_specials") }}'
+    columns:
+      - name: product_on_special_surrogate_key
+        description: Surrogate key to represent a unique row in the table. Produced as a combination of the item id, mongodb document id, and date extracted.
+      - name: product_id
+        description: Unique id of the product. Assumed to not change over time (need to add a test to check). Foreign key for the dim_product_descriptions table.
+      - name: special_id
+        description: ID of the special used for the item. The same ID (special) may be reused for multiple items.
+      - name: special_description
+        description: Description of the special if available. May be null.
+      - name: special_end_date_text
+        description: End date for the special. In the future this can be combined with an estimated start date to look at the average length of each type of special.
+      - name: has_online_special
+        description: Boolean true / false on whether there is an online special.
+      - name: special_type
+        description: Type of special - for example whether the price is locked, or a general special
+      - name: special_subtype
+        description: Subtype of the special - for example a multisave (save when buying multiple items).
+      - name: min_purchase_quantity
+        description: Appears to be minimum number of items needed to purchase to get the special pricing for a multisave subtype special. May be null.
+      - name: savings
+        description: Appears to be savings in $AUD relative to regular pricing for multisave type specials
+      - name: mongodb_document_id
+        description: Document ID from the raw MongoDB data. Useful for debugging.
+
+  - name: mart_pricing_over_time
+    description: '{{ doc("mart_pricing_over_time") }}'
+    columns:
+      - name: pricing_date
+        description: Date the item price was retrieved.
+      - name: product_name
+        description: Name of the product
+      - name: product_category
+        description: Filter text for type of product - packaged salads, citrus fruits, etc.
+      - name: product_subcategory
+        description: Filter text for product subcategory - herbs, cucumbers, lemons, etc.
+      - name: price_aud
+        description: Price of item in Australian Dollars ($AUD)
+      - name: size_quantity
+        description: Quantity the item comes in with unit as per the size_unit column. For example, 200 (and then size_unit column will be in grams)
+      - name: size_unit
+        description: Unit for the associated quantity the item comes in with quantity as per the size_quantity column. For example, grams (and then size_quantity column will be in 200)
+      - name: price_aud_per_quantity_unit
+        description: Price (price_aud column) divided by the size_quantity column. Gives a standardised measure for measuring price over time, even if the item quantity changes but price stays the same.
+
+  - name: mart_specials_over_time
+    description: '{{ doc("mart_specials_over_time") }}'
+    columns:
+      - name: date_extracted
+        description: Date the specials data was extracted.
+      - name: product_name
+        description: Name of the product
+      - name: product_category
+        description: Filter text for type of product - packaged salads, citrus fruits, etc.
+      - name: product_subcategory
+        description: Filter text for product subcategory - herbs, cucumbers, lemons, etc.
+      - name: special_id
+        description: ID of the special used for the item. The same ID (special) may be reused for multiple items.
+      - name: special_description
+        description: Description of the special if available. May be null.
+      - name: special_end_date_text
+        description: End date for the special. In the future this can be combined with an estimated start date to look at the average length of each type of special.
+      - name: special_type
+        description: Type of special - for example whether the price is locked, or a general special
+      - name: special_subtype
+        description: Subtype of the special - for example a multisave (save when buying multiple items).
+      - name: min_purchase_quantity
+        description: Appears to be minimum number of items needed to purchase to get the special pricing for a multisave subtype special. May be null.
+      - name: savings
+        description: Appears to be savings in $AUD relative to regular pricing for multisave type specials
