@@ -1,6 +1,6 @@
 # Introduction
 
-This project retrieves supermarket pricing and product specials on a weekly basis. As a portfolio piece, this project is intended to demonstrate my proficiency with a number of data engineering technologies including:
+This project retrieves supermarket pricing and product specials data on a weekly basis and loads it into a data mart. As a portfolio piece, this project is intended to demonstrate my proficiency with a number of data engineering technologies including:
 
 * Apache Airflow
 * Docker
