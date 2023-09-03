@@ -18,8 +18,8 @@ There is no API available on the Coles (supermarket) website so web scraping is 
 To Do:
 * Dockerise setup
 * Add dbt tests
+* Add python tests
 * Add error logging
-* Add Redis scope
 
 # Data Pipeline Architecture
 ![pipeline_architecture](Images/architecture.png)
