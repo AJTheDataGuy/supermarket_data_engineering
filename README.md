@@ -16,16 +16,15 @@ To keep costs down I have chosen a dockerised approach rather than using cloud s
 There is no API available on the Coles (supermarket) website so web scraping is necessary for this project. Please see the "A Note On Ethical Web Scraping" section below. 
 
 To Do:
-* Dockerise setup
 * Add dbt tests
 * Add python tests
 * Add error logging
 
 # Data Pipeline Architecture
-![pipeline_architecture](Images/architecture.png)
+![pipeline_architecture](Images/architecture_diagram_2.png)
 
 # PostgreSQL / dbt Data Model
-![pipeline_architecture](Images/data_model.png)
+![pipeline_architecture](Images/data_model_diagram_2.png)
 
 # A Note On Ethical Web Scraping
 As part of ethical web scraping practices please note the following:

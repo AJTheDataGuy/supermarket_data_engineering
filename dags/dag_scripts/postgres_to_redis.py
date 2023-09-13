@@ -25,7 +25,7 @@ def main():
     set_redis_value(redis_conn, sql_query_result)
 
 
-def get_redis_connection(host="localhost", port=6379, decode_responses=True):
+def get_redis_connection(host="redis_project_data", port=6380, decode_responses=True):
     """Connect to the redis database
 
     Input Parameters:
@@ -43,7 +43,7 @@ def get_redis_connection(host="localhost", port=6379, decode_responses=True):
 
 
 def connect_to_postgresql(
-    host="localhost", database="supermarket_data", user="postgres", password="postgres"
+    host="postgres_project_data", database="supermarket_data", user="postgres", password="postgres",port="5433"
 ):
     """Creates a connection to the target PostgreSQL database
 
@@ -57,7 +57,7 @@ def connect_to_postgresql(
     1. engine: sqlalchemy engine to use to connect to PostgreSQL
     """
 
-    engine = create_engine(f"postgresql+psycopg2://{user}:{password}@{host}/{database}")
+    engine = create_engine(f"postgresql+psycopg2://{user}:{password}@{host}:{port}/{database}")
     postgres_connection = engine.connect()
     return postgres_connection
 

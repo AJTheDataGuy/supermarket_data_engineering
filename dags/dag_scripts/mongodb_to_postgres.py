@@ -51,9 +51,9 @@ def main():
 
 
 def connect_to_mongodb(
-    db_name: str = "testing",
-    coll_name: str = "python_tests",
-    connection_string="mongodb://localhost:27017/",
+    db_name: str = "supermarket_data",
+    coll_name: str = "supermarket_json",
+    connection_string="mongodb://mongodb:27017/",
 ):
     """Connct to a mongo db database using the pymongo library
 
@@ -67,7 +67,7 @@ def connect_to_mongodb(
     Parameters:
     1. db_name: database name in mongodb
     2. coll_name: collection to connect to
-    3. connection_string: connection string for mongodb
+    3. connection_string: connection string for mongodb with default port 27017
 
     Returns:
     1. collection: connection to a specific MongoDB collection
@@ -81,7 +81,7 @@ def connect_to_mongodb(
 
 
 def create_postgresql_engine(
-    host="localhost", database="supermarket_data", user="postgres", password="postgres"
+    host="postgres_project_data", database="supermarket_data", user="postgres", password="postgres",port="5433"
 ):
     """Creates a connection to the target PostgreSQL database
 
@@ -95,7 +95,7 @@ def create_postgresql_engine(
     1. engine: sqlalchemy engine to use to connect to PostgreSQL
     """
 
-    engine = create_engine(f"postgresql+psycopg2://{user}:{password}@{host}/{database}")
+    engine = create_engine(f"postgresql+psycopg2://{user}:{password}@{host}:{port}/{database}")
     return engine
 
 

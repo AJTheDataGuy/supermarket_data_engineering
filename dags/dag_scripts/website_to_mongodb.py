@@ -76,7 +76,7 @@ def main():
 def connect_to_mongodb(
     db_name: str = "supermarket_data",
     coll_name: str = "supermarket_json",
-    connection_string="mongodb://localhost:27017/",
+    connection_string="mongodb://mongodb:27017/",
 ) -> pymongo.collection.Collection:
     """Connect to a mongo db database using the pymongo library
 

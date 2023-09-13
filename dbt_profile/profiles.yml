@@ -1,0 +1,33 @@
+dbt_supermarket_data_engineering:
+  outputs:
+    default:
+      type: postgres
+      threads: 1
+      host: postgres_project_data
+      port: 5433
+      user: postgres
+      pass: postgres
+      dbname: supermarket_data
+      schema: public
+
+    dev:
+      type: postgres
+      threads: 1
+      host: postgres_project_data
+      port: 5433
+      user: postgres
+      pass: postgres
+      dbname: supermarket_data
+      schema: public
+
+    prod:
+      type: postgres
+      threads: 1
+      host: postgres_project_data
+      port: 5433
+      user: postgres
+      pass: postgres
+      dbname: supermarket_data
+      schema: public
+
+  target: dev

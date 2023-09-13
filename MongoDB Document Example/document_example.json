@@ -1,0 +1,76 @@
+{
+  "_id": {
+    "$oid": "64aa5b96de51bc190c6eb6ce"
+  },
+  "_type": "PRODUCT",
+  "id": 4595930,
+  "adId": null,
+  "adSource": null,
+  "featured": false,
+  "name": "Leeks",
+  "brand": "Coles",
+  "description": "LEEKS:LOOSE:1 EACH",
+  "size": "1 each",
+  "availability": true,
+  "availabilityType": "InStoreAndOnline",
+  "imageUris": [
+    {
+      "altText": "",
+      "type": "default",
+      "uri": "/4/4595930.jpg"
+    }
+  ],
+  "locations": [
+    {
+      "aisleSide": "Front of Store",
+      "description": "Located in Fresh produce at $STORE",
+      "facing": 0,
+      "aisle": "Fresh produce",
+      "order": 0,
+      "shelf": null
+    }
+  ],
+  "restrictions": {
+    "retailLimit": 50,
+    "promotionalLimit": 50,
+    "liquorAgeRestrictionFlag": false,
+    "tobaccoAgeRestrictionFlag": false,
+    "restrictedByOrganisation": false,
+    "delivery": [
+      "REMOTE SERVICE",
+      "TEMP"
+    ]
+  },
+  "merchandiseHeir": {
+    "tradeProfitCentre": "FRESH PROD",
+    "categoryGroup": "VEGETABLES/SALAD",
+    "category": "BUNCH LINES",
+    "subCategory": "LEEKS",
+    "className": "LEEKS"
+  },
+  "onlineHeirs": [
+    {
+      "aisle": "Onion & leeks",
+      "category": "Vegetables",
+      "subCategory": "Fruit & vegetables",
+      "categoryId": "1303",
+      "aisleId": "646512",
+      "subCategoryId": "2100"
+    }
+  ],
+  "pricing": {
+    "now": 2.9,
+    "was": 0,
+    "unit": {
+      "quantity": 1,
+      "ofMeasureQuantity": 1,
+      "ofMeasureUnits": "ea",
+      "price": 2.9,
+      "ofMeasureType": "ea",
+      "isWeighted": false
+    },
+    "comparable": "$2.90 per 1ea",
+    "onlineSpecial": false
+  },
+  "date_extracted": "2023-07-09"
+}
