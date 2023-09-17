@@ -2,5 +2,5 @@ requests==2.31.0
 pandas==1.5.3
 pymongo==4.4.0
 redis==5.0.0
-psycopg2-binary==2.9.7
-dbt-postgres==1.6.2
+psycopg2==2.9.6
+dbt-postgres==1.6.0

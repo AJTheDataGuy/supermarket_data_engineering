@@ -10,56 +10,21 @@ import logging
 
 # 3rd Party Imports
 import pandas as pd
-import redis
-import psycopg2
 import sqlalchemy
-from sqlalchemy import create_engine, text
+from sqlalchemy import text
+
+from dag_scripts.db_connections import db_connection_funcs
 
 
 def main():
     """main"""
-    redis_conn = get_redis_connection()
-    postgres_connection = connect_to_postgresql()
+    postgres_engine = db_connection_funcs.create_postgresql_engine()
     sql_query_str = get_sql_query_current_pricing()
-    sql_query_result = execute_sql_query(postgres_connection, sql_query_str)
+    sql_query_result = execute_sql_query(postgres_engine, sql_query_str)
+    postgres_engine.dispose()
+    redis_conn = db_connection_funcs.get_redis_connection()
     set_redis_value(redis_conn, sql_query_result)
-
-
-def get_redis_connection(host="redis_project_data", port=6380, decode_responses=True):
-    """Connect to the redis database
-
-    Input Parameters:
-    1. Host
-    2. Port
-    3. Decode responses
-
-    Returns
-    1. Connection to the redis database
-    """
-    redis_connection = redis.Redis(
-        host=host, port=port, decode_responses=decode_responses
-    )
-    return redis_connection
-
-
-def connect_to_postgresql(
-    host="postgres_project_data", database="supermarket_data", user="postgres", password="postgres",port="5433"
-):
-    """Creates a connection to the target PostgreSQL database
-
-    Parameters:
-    1. host: PostgreSQL host
-    2. database: Database within PostgreSQL to connect to
-    3. user: Database username
-    4. password: Database password
-
-    Returns:
-    1. engine: sqlalchemy engine to use to connect to PostgreSQL
-    """
-
-    engine = create_engine(f"postgresql+psycopg2://{user}:{password}@{host}:{port}/{database}")
-    postgres_connection = engine.connect()
-    return postgres_connection
+    redis_conn.close()
 
 
 def get_sql_query_current_pricing() -> str:
@@ -94,8 +59,9 @@ def execute_sql_query(postgres_connection, sql_query_str):
     """
     try:
         query_result = pd.read_sql(sql_query_str, postgres_connection)
-    except sqlalchemy.exc.OperationalError:
+    except sqlalchemy.exc.OperationalError as e:
         logging.error("Error with SQL query - please check your query string")
+        raise ValueError from e
     return query_result
 
 
@@ -112,10 +78,11 @@ def set_redis_value(redis_connection, sql_query_result: pd.DataFrame):
     """
     try:
         redis_sum_value_float = sql_query_result["sum"][0]
-    except KeyError:
+    except KeyError as e:
         logging.error(
             "Error with SQL query result - column does not exist in query result"
         )
+        raise KeyError from e
     redis_connection.set("current_weekly_price_all_items", redis_sum_value_float)
 
 

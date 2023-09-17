@@ -26,14 +26,14 @@ TO DO: Add better error handling
 # Standard Library Imports
 from datetime import date
 import json
+import logging
 import re
 from time import sleep
 from typing import Pattern
 import requests
 
-
-# 3rd Party Imports
-import pymongo
+# Custom modules
+from dag_scripts.db_connections import db_connection_funcs
 
 REQUEST_PADDING_TIME = 3
 
@@ -42,14 +42,10 @@ def main():
     """main"""
     session = requests.session()
     webpages_list = create_paginated_webpages_list()
-
     today_str = str(date.today())
-
     json_regex = compile_regex_for_json_extraction()
-
-    mongodb_collection = connect_to_mongodb()
-    # Clean the mongodb staging area from last run
-    mongodb_collection.delete_many({})
+    mongodb_client = db_connection_funcs.get_mongodb_client()
+    mongodb_collection = db_connection_funcs.get_mongodb_collection(mongodb_client)
 
     for webpage in webpages_list:
         sleep(REQUEST_PADDING_TIME)
@@ -71,32 +67,7 @@ def main():
 
         # Load
         mongodb_collection.insert_many(list_of_json_objs_w_date)
-
-
-def connect_to_mongodb(
-    db_name: str = "supermarket_data",
-    coll_name: str = "supermarket_json",
-    connection_string="mongodb://mongodb:27017/",
-) -> pymongo.collection.Collection:
-    """Connect to a mongo db database using the pymongo library
-
-    In the future this function could return a (client, database, collection) tuple
-    to work more directly with the database and client
-
-    Parameters:
-    1. db_name: database name in mongodb
-    2. coll_name: collection to connect to
-    3. connection_string: connection string for mongodb
-
-    Returns:
-    1. collection: Connection a specific mongoDB collection
-    """
-
-    client = pymongo.MongoClient(connection_string)
-    database = client[db_name]
-    collection = database[coll_name]
-
-    return collection
+    mongodb_client.close()
 
 
 def extract_single_webpage_text(single_webpage_url: str, session) -> str:
@@ -128,9 +99,12 @@ def extract_single_webpage_text(single_webpage_url: str, session) -> str:
     Returns:
     1. raw_text_str: Raw text including unwanted text and valuable json data
     """
-
-    data_from_request_str = session.get(single_webpage_url)
-    raw_text_str = data_from_request_str.text
+    try:
+        data_from_request_str = session.get(single_webpage_url)
+        raw_text_str = data_from_request_str.text
+    except requests.exceptions.RequestException as e:
+        logging.error("Error occured with get request. Please try again")
+        raise requests.exceptions.RequestException from e
     return raw_text_str
 
 
@@ -173,21 +147,22 @@ def compile_regex_for_json_extraction() -> Pattern[str]:
 def convert_json_as_strings_to_json_as_objs(json_found_in_regex_list: list) -> list:
     """Purpose: Loops through a list of JSON as strings and converts them to actual JSON
 
-    Parameters: 
+    Parameters:
     1. json_found_in_regex_list:
         The list of json strings found by the regex function for a single webpage
 
-    Returns: 
+    Returns:
     1. formatted_json_list: A list of JSON objects
     """
-    errors_list = []
     formatted_json_list = []
     for json_string in json_found_in_regex_list:
         try:
             formatted_json_list.append(json.loads(json_string))
         except ValueError:
-            errors_list.append(json_string)
-            print(f"ERROR ON ITEM {json_string}")
+            logging.warning(
+                "ERROR ON ITEM %s. Item will not be added to MongoDB.",
+                json_string
+            )
     return formatted_json_list
 
 
@@ -197,7 +172,9 @@ def append_date_extracted_to_json(list_of_json_objs: list, date_today: str):
 
     Parameters:
     1. list_of_json_objs: List of JSON objects found in the website raw text
-    2. date_today: today's date represented as a string
+    2. date_today: today's date represented as a string. Added as a parameter
+        rather than function variable in case this script is ran close to
+        midnight
 
     Returns
     1. list_of_json_objs: list of JSON objects found in the raw website text
@@ -212,13 +189,12 @@ def create_paginated_webpages_list(
     base_url: str = "https://www.coles.com.au",
     additional_url: str = "/browse/fruit-vegetables",
     pagination_str="?page=",
-    max_page: int = 30,
+    max_page: int = 2,
 ) -> list:
     """Creates a list of pages to run the program through
     based on the individual parts of a URL.
 
     Maximum page to get data from is defined as a parameter and initially set as 30
-    This is 
 
     Parameters:
     1. base_url: Base part of the website to connect to

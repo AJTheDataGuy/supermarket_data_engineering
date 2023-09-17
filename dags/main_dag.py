@@ -17,6 +17,10 @@ with DAG(
     tags=["main_dag"],
 ) as dag:
     ##### TASK DEFINITIONS ########
+    @task(task_id="clear_mongodb_staging")
+    def clear_mongodb():
+        from dag_scripts import clear_mongodb_staging
+        return PythonOperator(python_callable=clear_mongodb_staging.main)
 
     @task(task_id="website_to_mongodb")
     def web_to_mongo():
@@ -38,7 +42,11 @@ with DAG(
         return PythonOperator(python_callable=postgres_to_redis.main)
     
     ############ MAIN DAG EXECUTION ############
-    web_to_mongo()>> mongo_to_postgres()>> run_dbt()>> posgressql_to_redis()
+    clear_mongodb()>> \
+        web_to_mongo()>> \
+            mongo_to_postgres()>>\
+                  run_dbt()>> \
+                    posgressql_to_redis()
 
 
     

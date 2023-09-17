@@ -268,8 +268,6 @@ services:
 
   airflow-cli:
     <<: *airflow-common
-    profiles:
-      - debug
     environment:
       <<: *airflow-common-env
       CONNECTION_CHECK_MAX_COUNT: "0"
@@ -285,8 +283,6 @@ services:
   flower:
     <<: *airflow-common
     command: celery flower
-    profiles:
-      - flower
     ports:
       - "5555:5555"
     healthcheck:
@@ -327,9 +323,6 @@ services:
       - '27017:27017'
     volumes:
       - mongo-data:/data/db
-  
-  dbt:
-    image:
 
 volumes:
   postgres-db-volume:
