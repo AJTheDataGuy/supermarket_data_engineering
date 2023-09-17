@@ -18,7 +18,7 @@ from sqlalchemy import create_engine
 
 
 def get_mongodb_client(
-    host: str = "mongodb", port: str = "27017",
+    host: str = "mongodb", port: str = "27018",
 ):
     """Connct to a mongo db database using the pymongo library
 

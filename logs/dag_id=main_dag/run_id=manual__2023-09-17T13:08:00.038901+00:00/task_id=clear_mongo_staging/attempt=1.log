@@ -1,0 +1,30 @@
+[2023-09-17T13:08:01.839+0000] {taskinstance.py:1157} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: main_dag.clear_mongo_staging manual__2023-09-17T13:08:00.038901+00:00 [queued]>
+[2023-09-17T13:08:01.898+0000] {taskinstance.py:1157} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: main_dag.clear_mongo_staging manual__2023-09-17T13:08:00.038901+00:00 [queued]>
+[2023-09-17T13:08:01.899+0000] {taskinstance.py:1359} INFO - Starting attempt 1 of 1
+[2023-09-17T13:08:01.988+0000] {taskinstance.py:1380} INFO - Executing <Task(_PythonDecoratedOperator): clear_mongo_staging> on 2023-09-17 13:08:00.038901+00:00
+[2023-09-17T13:08:02.013+0000] {standard_task_runner.py:57} INFO - Started process 231 to run task
+[2023-09-17T13:08:02.023+0000] {standard_task_runner.py:84} INFO - Running: ['***', 'tasks', 'run', 'main_dag', 'clear_mongo_staging', 'manual__2023-09-17T13:08:00.038901+00:00', '--job-id', '7', '--raw', '--subdir', 'DAGS_FOLDER/main_dag.py', '--cfg-path', '/tmp/tmp0rf7rvl2']
+[2023-09-17T13:08:02.024+0000] {standard_task_runner.py:85} INFO - Job 7: Subtask clear_mongo_staging
+[2023-09-17T13:08:02.243+0000] {task_command.py:415} INFO - Running <TaskInstance: main_dag.clear_mongo_staging manual__2023-09-17T13:08:00.038901+00:00 [running]> on host c363bcbf8e8c
+[2023-09-17T13:08:02.572+0000] {taskinstance.py:1660} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='main_dag' AIRFLOW_CTX_TASK_ID='clear_mongo_staging' AIRFLOW_CTX_EXECUTION_DATE='2023-09-17T13:08:00.038901+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2023-09-17T13:08:00.038901+00:00'
+[2023-09-17T13:08:02.673+0000] {taskinstance.py:1935} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/decorators/base.py", line 221, in execute
+    return_value = super().execute(context)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 192, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 209, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/main_dag.py", line 23, in clear_mongo_staging
+    return PythonOperator(python_callable=clear_mongodb_staging.main)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/baseoperator.py", line 437, in apply_defaults
+    result = func(self, **kwargs, default_args=default_args)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 177, in __init__
+    super().__init__(**kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/baseoperator.py", line 437, in apply_defaults
+    result = func(self, **kwargs, default_args=default_args)
+TypeError: __init__() missing 1 required positional argument: 'task_id'
+[2023-09-17T13:08:02.688+0000] {taskinstance.py:1398} INFO - Marking task as FAILED. dag_id=main_dag, task_id=clear_mongo_staging, execution_date=20230917T130800, start_date=20230917T130801, end_date=20230917T130802
+[2023-09-17T13:08:02.717+0000] {standard_task_runner.py:104} ERROR - Failed to execute job 7 for task clear_mongo_staging (__init__() missing 1 required positional argument: 'task_id'; 231)
+[2023-09-17T13:08:02.765+0000] {local_task_job_runner.py:228} INFO - Task exited with return code 1
+[2023-09-17T13:08:02.819+0000] {taskinstance.py:2776} INFO - 0 downstream tasks scheduled from follow-on schedule check
