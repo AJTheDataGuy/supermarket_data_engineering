@@ -81,8 +81,14 @@ x-airflow-common:
     - ${AIRFLOW_PROJ_DIR:-.}/config:/opt/airflow/config
     - ${AIRFLOW_PROJ_DIR:-.}/plugins:/opt/airflow/plugins
     - ${AIRFLOW_PROJ_DIR:-.}/dbt_profile:/.dbt
-    - ${AIRFLOW_PROJ_DIR:-.}/dbt_project:/opt/airflow/dbt_project
-  user: "${AIRFLOW_UID:-50000}:0"
+    - ${AIRFLOW_PROJ_DIR:-.}/dbt_project:/dbt_project
+  # dbt by default can only write files under root user
+  # Otherwise it throws a permissions error
+  # I had tried adding lines to the dockerfile such as chmod 777 but
+  # it still did not work. I intend to fix this permissions bug moving forward.
+  # Because this is just a dev environment this should be OK but will need
+  # to be fixed moving to prod.
+  user: root
   depends_on:
     &airflow-common-depends-on
     redis:
@@ -306,9 +312,9 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: postgres
+      POSTGRES_DB: supermarket_data
     ports: 
-      - "5433:5433"
+      - "5433:5432"
     volumes:
       - postgres-project-data:/var/lib/postgresql/data
     restart: always
@@ -316,7 +322,7 @@ services:
   redis_project_data:
     image: redis:latest
     ports: 
-      - "6380:6380"
+      - "6380:6379"
     restart: always
     volumes:
       - redis-project-data:/data
@@ -324,9 +330,14 @@ services:
   mongodb:
     image: mongo:7.0.1
     ports:
-      - '27018:27018'
+      - '27018:27017'
     volumes:
       - mongo-data:/data/db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=root
+      - MONGO_INITDB_DATABASE=supermarket_data
+
 
 volumes:
   postgres-db-volume:

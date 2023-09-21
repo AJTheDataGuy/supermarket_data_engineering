@@ -9,7 +9,12 @@ SELECT
     {{ dbt_utils.surrogate_key(['id','_id','date_extracted']) }} AS price_surrogate_key,
     id AS product_id,
     "pricing.now" AS price_AUD,
-    regexp_replace(size, '\D','','g')::numeric AS size_quantity,
+    CASE 
+        WHEN size ~ '^[0-9]*\.?[0-9]*$' THEN
+            coalesce(regexp_replace(size, '\D','','g'),'0')::numeric
+        ELSE
+            NULL
+    END AS size_quantity,
     trim(regexp_replace(size,'[[:digit:]]','','g')) AS size_unit,
     "pricing.unit.price" AS standard_pricing_price_AUD,
     "pricing.unit.ofMeasureType" AS standard_pricing_unit,

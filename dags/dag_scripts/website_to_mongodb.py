@@ -189,7 +189,7 @@ def create_paginated_webpages_list(
     base_url: str = "https://www.coles.com.au",
     additional_url: str = "/browse/fruit-vegetables",
     pagination_str="?page=",
-    max_page: int = 2,
+    max_page: int = 30,
 ) -> list:
     """Creates a list of pages to run the program through
     based on the individual parts of a URL.

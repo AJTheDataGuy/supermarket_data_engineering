@@ -1,0 +1,52 @@
+[2023-09-21T08:48:29.110+0000] {taskinstance.py:1157} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: main_dag.run_dbt manual__2023-09-21T08:46:55.222199+00:00 [queued]>
+[2023-09-21T08:48:29.125+0000] {taskinstance.py:1157} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: main_dag.run_dbt manual__2023-09-21T08:46:55.222199+00:00 [queued]>
+[2023-09-21T08:48:29.126+0000] {taskinstance.py:1359} INFO - Starting attempt 1 of 1
+[2023-09-21T08:48:29.239+0000] {taskinstance.py:1380} INFO - Executing <Task(BashOperator): run_dbt> on 2023-09-21 08:46:55.222199+00:00
+[2023-09-21T08:48:29.251+0000] {standard_task_runner.py:57} INFO - Started process 618 to run task
+[2023-09-21T08:48:29.257+0000] {standard_task_runner.py:84} INFO - Running: ['***', 'tasks', 'run', 'main_dag', 'run_dbt', 'manual__2023-09-21T08:46:55.222199+00:00', '--job-id', '22', '--raw', '--subdir', 'DAGS_FOLDER/main_dag.py', '--cfg-path', '/tmp/tmplbcn8zmc']
+[2023-09-21T08:48:29.262+0000] {standard_task_runner.py:85} INFO - Job 22: Subtask run_dbt
+[2023-09-21T08:48:29.368+0000] {task_command.py:415} INFO - Running <TaskInstance: main_dag.run_dbt manual__2023-09-21T08:46:55.222199+00:00 [running]> on host efc7e3a30856
+[2023-09-21T08:48:29.512+0000] {taskinstance.py:1660} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='main_dag' AIRFLOW_CTX_TASK_ID='run_dbt' AIRFLOW_CTX_EXECUTION_DATE='2023-09-21T08:46:55.222199+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2023-09-21T08:46:55.222199+00:00'
+[2023-09-21T08:48:29.515+0000] {subprocess.py:63} INFO - Tmp dir root location: /tmp
+[2023-09-21T08:48:29.515+0000] {subprocess.py:75} INFO - Running command: ['/bin/bash', '-c', 'dbt run --profiles-dir /.dbt --project-dir /dbt_project']
+[2023-09-21T08:48:29.534+0000] {subprocess.py:86} INFO - Output:
+[2023-09-21T08:48:34.021+0000] {subprocess.py:93} INFO - [0m08:48:34  Running with dbt=1.5.3
+[2023-09-21T08:48:34.257+0000] {subprocess.py:93} INFO - [0m08:48:34  Registered adapter: postgres=1.5.3
+[2023-09-21T08:48:34.767+0000] {subprocess.py:93} INFO - [0m08:48:34  [[33mWARNING[0m]: Configuration paths exist in your dbt_project.yml file which do not apply to any resources.
+[2023-09-21T08:48:34.767+0000] {subprocess.py:93} INFO - There are 1 unused configuration paths:
+[2023-09-21T08:48:34.768+0000] {subprocess.py:93} INFO - - models.dbt_supermarket_data_engineering.example
+[2023-09-21T08:48:34.822+0000] {subprocess.py:93} INFO - [0m08:48:34  Found 5 models, 0 tests, 1 snapshot, 0 analyses, 718 macros, 0 operations, 0 seed files, 1 source, 0 exposures, 0 metrics, 0 groups
+[2023-09-21T08:48:34.831+0000] {subprocess.py:93} INFO - [0m08:48:34
+[2023-09-21T08:48:35.057+0000] {subprocess.py:93} INFO - [0m08:48:35  Concurrency: 1 threads (target='dev')
+[2023-09-21T08:48:35.060+0000] {subprocess.py:93} INFO - [0m08:48:35
+[2023-09-21T08:48:35.074+0000] {subprocess.py:93} INFO - [0m08:48:35  1 of 5 START sql incremental model public.dim_product_descriptions ............. [RUN]
+[2023-09-21T08:48:35.536+0000] {subprocess.py:93} INFO - [0m08:48:35  1 of 5 OK created sql incremental model public.dim_product_descriptions ........ [[32mINSERT 0 637[0m in 0.46s]
+[2023-09-21T08:48:35.544+0000] {subprocess.py:93} INFO - [0m08:48:35  2 of 5 START sql incremental model public.fct_product_prices ................... [RUN]
+[2023-09-21T08:48:35.625+0000] {subprocess.py:93} INFO - [0m08:48:35  2 of 5 ERROR creating sql incremental model public.fct_product_prices .......... [[31mERROR[0m in 0.08s]
+[2023-09-21T08:48:35.630+0000] {subprocess.py:93} INFO - [0m08:48:35  3 of 5 START sql incremental model public.fct_product_specials ................. [RUN]
+[2023-09-21T08:48:35.830+0000] {subprocess.py:93} INFO - [0m08:48:35  3 of 5 OK created sql incremental model public.fct_product_specials ............ [[32mINSERT 0 199[0m in 0.20s]
+[2023-09-21T08:48:35.834+0000] {subprocess.py:93} INFO - [0m08:48:35  4 of 5 SKIP relation public.mart_pricing_over_time ............................. [[33mSKIP[0m]
+[2023-09-21T08:48:35.842+0000] {subprocess.py:93} INFO - [0m08:48:35  5 of 5 START sql incremental model public.mart_specials_over_time .............. [RUN]
+[2023-09-21T08:48:36.031+0000] {subprocess.py:93} INFO - [0m08:48:36  5 of 5 OK created sql incremental model public.mart_specials_over_time ......... [[32mINSERT 0 199[0m in 0.18s]
+[2023-09-21T08:48:36.063+0000] {subprocess.py:93} INFO - [0m08:48:36
+[2023-09-21T08:48:36.064+0000] {subprocess.py:93} INFO - [0m08:48:36  Finished running 5 incremental models in 0 hours 0 minutes and 1.23 seconds (1.23s).
+[2023-09-21T08:48:36.175+0000] {subprocess.py:93} INFO - [0m08:48:36
+[2023-09-21T08:48:36.177+0000] {subprocess.py:93} INFO - [0m08:48:36  [31mCompleted with 1 error and 0 warnings:[0m
+[2023-09-21T08:48:36.178+0000] {subprocess.py:93} INFO - [0m08:48:36
+[2023-09-21T08:48:36.180+0000] {subprocess.py:93} INFO - [0m08:48:36  [33mDatabase Error in model fct_product_prices (models/fct_product_prices.sql)[0m
+[2023-09-21T08:48:36.181+0000] {subprocess.py:93} INFO - [0m08:48:36    column "0" does not exist
+[2023-09-21T08:48:36.182+0000] {subprocess.py:93} INFO - [0m08:48:36    LINE 29:     regexp_replace(replace(size,'""',"0"), '\D','','g')::num...
+[2023-09-21T08:48:36.183+0000] {subprocess.py:93} INFO - [0m08:48:36                                                  ^
+[2023-09-21T08:48:36.184+0000] {subprocess.py:93} INFO - [0m08:48:36    compiled Code at target/run/dbt_supermarket_data_engineering/models/fct_product_prices.sql
+[2023-09-21T08:48:36.186+0000] {subprocess.py:93} INFO - [0m08:48:36
+[2023-09-21T08:48:36.189+0000] {subprocess.py:93} INFO - [0m08:48:36  Done. PASS=3 WARN=0 ERROR=1 SKIP=1 TOTAL=5
+[2023-09-21T08:48:38.600+0000] {subprocess.py:97} INFO - Command exited with return code 1
+[2023-09-21T08:48:38.628+0000] {taskinstance.py:1935} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/bash.py", line 210, in execute
+    raise AirflowException(
+airflow.exceptions.AirflowException: Bash command failed. The command returned a non-zero exit code 1.
+[2023-09-21T08:48:38.635+0000] {taskinstance.py:1398} INFO - Marking task as FAILED. dag_id=main_dag, task_id=run_dbt, execution_date=20230921T084655, start_date=20230921T084829, end_date=20230921T084838
+[2023-09-21T08:48:38.680+0000] {standard_task_runner.py:104} ERROR - Failed to execute job 22 for task run_dbt (Bash command failed. The command returned a non-zero exit code 1.; 618)
+[2023-09-21T08:48:38.724+0000] {local_task_job_runner.py:228} INFO - Task exited with return code 1
+[2023-09-21T08:48:38.774+0000] {taskinstance.py:2776} INFO - 0 downstream tasks scheduled from follow-on schedule check

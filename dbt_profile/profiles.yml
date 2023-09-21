@@ -4,7 +4,7 @@ dbt_supermarket_data_engineering:
       type: postgres
       threads: 1
       host: postgres_project_data
-      port: 5433
+      port: 5432
       user: postgres
       pass: postgres
       dbname: supermarket_data
@@ -14,7 +14,7 @@ dbt_supermarket_data_engineering:
       type: postgres
       threads: 1
       host: postgres_project_data
-      port: 5433
+      port: 5432
       user: postgres
       pass: postgres
       dbname: supermarket_data
@@ -24,7 +24,7 @@ dbt_supermarket_data_engineering:
       type: postgres
       threads: 1
       host: postgres_project_data
-      port: 5433
+      port: 5432
       user: postgres
       pass: postgres
       dbname: supermarket_data

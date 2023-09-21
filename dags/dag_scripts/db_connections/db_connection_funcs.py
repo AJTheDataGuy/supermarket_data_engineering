@@ -18,7 +18,7 @@ from sqlalchemy import create_engine
 
 
 def get_mongodb_client(
-    host: str = "mongodb", port: str = "27018",
+    host: str = "mongodb", port: str = "27017",user="root",pw="root"
 ):
     """Connct to a mongo db database using the pymongo library
 
@@ -34,7 +34,7 @@ def get_mongodb_client(
     Returns:
     1. client: connection to a specific MongoDB collection
     """
-    connection_string = (f"mongodb://{host}:{port}/",)
+    connection_string = (f"mongodb://{user}:{pw}@{host}:{port}/",)
     client = pymongo.MongoClient(connection_string)
 
     return client
@@ -70,7 +70,7 @@ def create_postgresql_engine(
     database="supermarket_data",
     user="postgres",
     password="postgres",
-    port="5433",
+    port="5432",
 ):
     """Creates a connection to the target PostgreSQL database
 
@@ -90,7 +90,7 @@ def create_postgresql_engine(
     return engine
 
 
-def get_redis_connection(host="redis_project_data", port=6380, decode_responses=True):
+def get_redis_connection(host="redis_project_data", port=6379, decode_responses=True):
     """Connect to the redis database
 
     Input Parameters:

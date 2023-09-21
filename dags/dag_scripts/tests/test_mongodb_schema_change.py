@@ -24,13 +24,13 @@ def test_if_schema_has_changed(flattened_json_df: pd.DataFrame):
     Returns:
     1. test_result. Returns True if schema change detected, and False if not.
     """
-    actual_columns_list = flattened_json_df.columns
-    expected_columns_list = get_expected_postgres_columns_list()
+    actual_columns_set = set(flattened_json_df.columns)
+    expected_columns_set = set(get_expected_postgres_columns_list())
     new_columns_flag = test_schema_change_if_new_columns(
-        expected_columns_list, actual_columns_list
+        expected_columns_set, actual_columns_set
     )
     deprecated_columns_flag = test_schema_change_if_deprecated_columns(
-        expected_columns_list, actual_columns_list
+        expected_columns_set, actual_columns_set
     )
 
     # Implicit boolean addition

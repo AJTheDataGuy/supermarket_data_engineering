@@ -1,0 +1,13 @@
+[2023-09-21T05:30:32.784+0000] {taskinstance.py:1157} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: main_dag.website_to_mongo manual__2023-09-21T05:30:24.751227+00:00 [queued]>
+[2023-09-21T05:30:32.796+0000] {taskinstance.py:1157} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: main_dag.website_to_mongo manual__2023-09-21T05:30:24.751227+00:00 [queued]>
+[2023-09-21T05:30:32.796+0000] {taskinstance.py:1359} INFO - Starting attempt 1 of 1
+[2023-09-21T05:30:32.822+0000] {taskinstance.py:1380} INFO - Executing <Task(PythonOperator): website_to_mongo> on 2023-09-21 05:30:24.751227+00:00
+[2023-09-21T05:30:32.828+0000] {standard_task_runner.py:57} INFO - Started process 101 to run task
+[2023-09-21T05:30:32.831+0000] {standard_task_runner.py:84} INFO - Running: ['***', 'tasks', 'run', 'main_dag', 'website_to_mongo', 'manual__2023-09-21T05:30:24.751227+00:00', '--job-id', '39', '--raw', '--subdir', 'DAGS_FOLDER/main_dag.py', '--cfg-path', '/tmp/tmpvrue9y4e']
+[2023-09-21T05:30:32.834+0000] {standard_task_runner.py:85} INFO - Job 39: Subtask website_to_mongo
+[2023-09-21T05:30:32.899+0000] {task_command.py:415} INFO - Running <TaskInstance: main_dag.website_to_mongo manual__2023-09-21T05:30:24.751227+00:00 [running]> on host 8f5aacc3809f
+[2023-09-21T05:30:33.026+0000] {taskinstance.py:1660} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='main_dag' AIRFLOW_CTX_TASK_ID='website_to_mongo' AIRFLOW_CTX_EXECUTION_DATE='2023-09-21T05:30:24.751227+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2023-09-21T05:30:24.751227+00:00'
+[2023-09-21T05:30:41.801+0000] {python.py:194} INFO - Done. Returned value was: None
+[2023-09-21T05:30:41.815+0000] {taskinstance.py:1398} INFO - Marking task as SUCCESS. dag_id=main_dag, task_id=website_to_mongo, execution_date=20230921T053024, start_date=20230921T053032, end_date=20230921T053041
+[2023-09-21T05:30:41.846+0000] {local_task_job_runner.py:228} INFO - Task exited with return code 0
+[2023-09-21T05:30:41.876+0000] {taskinstance.py:2776} INFO - 1 downstream tasks scheduled from follow-on schedule check
