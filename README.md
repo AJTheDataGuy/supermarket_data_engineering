@@ -30,7 +30,8 @@ To Do:
 Main DAG:
 ![pipeline_architecture](Images/DAG.png)
 
-Tests DAG:
+Tests DAG:\
+
 ![pipeline_architecture](Images/tests_dag.png)
 
 # A Note On Ethical Web Scraping
