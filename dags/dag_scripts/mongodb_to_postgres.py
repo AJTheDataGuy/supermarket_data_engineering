@@ -27,7 +27,8 @@ from dag_scripts.tests import test_mongodb_schema_change
 def main():
     """main"""
     mongodb_client = db_connection_funcs.get_mongodb_client()
-    mongodb_collection = db_connection_funcs.get_mongodb_collection(mongodb_client)
+    mongo_database = db_connection_funcs.get_mongodb_database(mongodb_client)
+    mongodb_collection = db_connection_funcs.get_mongodb_collection(mongo_database)
     json_data_list = mongodb_collection.find({})
     flattened_json_df = pd.json_normalize(json_data_list)
     mongodb_client.close()

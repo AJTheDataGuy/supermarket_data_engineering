@@ -45,7 +45,8 @@ def main():
     today_str = str(date.today())
     json_regex = compile_regex_for_json_extraction()
     mongodb_client = db_connection_funcs.get_mongodb_client()
-    mongodb_collection = db_connection_funcs.get_mongodb_collection(mongodb_client)
+    mongodb_database = db_connection_funcs.get_mongodb_database(mongodb_client)
+    mongodb_collection = db_connection_funcs.get_mongodb_collection(mongodb_database)
 
     for webpage in webpages_list:
         sleep(REQUEST_PADDING_TIME)

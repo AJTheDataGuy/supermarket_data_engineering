@@ -39,16 +39,39 @@ def get_mongodb_client(
 
     return client
 
-
-def get_mongodb_collection(
+def get_mongodb_database(
     mongodb_client,
     db_name: str = "supermarket_data",
+):
+    """Connect to a mongo database using a mongodb
+    client object. Mongodb client creation and linking to the 
+    database and collection
+    are in seperate functions so the client can be closed directly
+    after use with the client.close() function. As well, it is easier
+    to test the connections to the database and collection seperately.
+
+    Parameters:
+    1. mongodb_client_connection: mongodb client object. Includes
+        host and port number
+    2. db_name: database name in mongodb
+
+    Returns:
+    1. database: connection to a specific MongoDB database
+    """
+    database = mongodb_client[db_name]
+
+    return database
+
+def get_mongodb_collection(
+    database_conn,
     coll_name: str = "supermarket_json",
 ):
-    """Connct to a mongo db collection using a mongodb
-    client object. Mongodb client creation and linking to the collection
+    """Connect to a mongo database using a mongodb
+    client object. Mongodb client creation and linking to the 
+    database and collection
     are in seperate functions so the client can be closed directly
-    after use with the client.close() function.
+    after use with the client.close() function. As well, it is easier
+    to test the connections to the database and collection seperately.
 
     Parameters:
     1. mongodb_client_connection: mongodb client object. Includes
@@ -59,8 +82,7 @@ def get_mongodb_collection(
     Returns:
     1. collection: connection to a specific MongoDB collection
     """
-    database = mongodb_client[db_name]
-    collection = database[coll_name]
+    collection = database_conn[coll_name]
 
     return collection
 

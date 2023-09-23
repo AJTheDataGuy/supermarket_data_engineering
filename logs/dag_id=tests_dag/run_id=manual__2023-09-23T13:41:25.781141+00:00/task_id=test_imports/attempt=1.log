@@ -1,0 +1,143 @@
+[2023-09-23T13:41:28.229+0000] {taskinstance.py:1157} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: tests_dag.test_imports manual__2023-09-23T13:41:25.781141+00:00 [queued]>
+[2023-09-23T13:41:28.246+0000] {taskinstance.py:1157} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: tests_dag.test_imports manual__2023-09-23T13:41:25.781141+00:00 [queued]>
+[2023-09-23T13:41:28.247+0000] {taskinstance.py:1359} INFO - Starting attempt 1 of 1
+[2023-09-23T13:41:28.283+0000] {taskinstance.py:1380} INFO - Executing <Task(BashOperator): test_imports> on 2023-09-23 13:41:25.781141+00:00
+[2023-09-23T13:41:28.289+0000] {standard_task_runner.py:57} INFO - Started process 365 to run task
+[2023-09-23T13:41:28.293+0000] {standard_task_runner.py:84} INFO - Running: ['***', 'tasks', 'run', 'tests_dag', 'test_imports', 'manual__2023-09-23T13:41:25.781141+00:00', '--job-id', '6', '--raw', '--subdir', 'DAGS_FOLDER/test_dag.py', '--cfg-path', '/tmp/tmp5wcc9tgv']
+[2023-09-23T13:41:28.296+0000] {standard_task_runner.py:85} INFO - Job 6: Subtask test_imports
+[2023-09-23T13:41:28.379+0000] {task_command.py:415} INFO - Running <TaskInstance: tests_dag.test_imports manual__2023-09-23T13:41:25.781141+00:00 [running]> on host 4ef300bfa8d2
+[2023-09-23T13:41:28.555+0000] {taskinstance.py:1660} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='tests_dag' AIRFLOW_CTX_TASK_ID='test_imports' AIRFLOW_CTX_EXECUTION_DATE='2023-09-23T13:41:25.781141+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2023-09-23T13:41:25.781141+00:00'
+[2023-09-23T13:41:28.558+0000] {subprocess.py:63} INFO - Tmp dir root location: /tmp
+[2023-09-23T13:41:28.559+0000] {subprocess.py:75} INFO - Running command: ['/bin/bash', '-c', 'pytest /opt/***/dags/dag_scripts/tests/test_imports.py']
+[2023-09-23T13:41:28.577+0000] {subprocess.py:86} INFO - Output:
+[2023-09-23T13:41:29.593+0000] {subprocess.py:93} INFO - ============================= test session starts ==============================
+[2023-09-23T13:41:29.593+0000] {subprocess.py:93} INFO - platform linux -- Python 3.8.18, pytest-7.4.2, pluggy-1.3.0
+[2023-09-23T13:41:29.593+0000] {subprocess.py:93} INFO - rootdir: /opt/***/dags/dag_scripts/tests
+[2023-09-23T13:41:29.594+0000] {subprocess.py:93} INFO - plugins: anyio-4.0.0
+[2023-09-23T13:41:29.594+0000] {subprocess.py:93} INFO - collected 11 items
+[2023-09-23T13:41:29.594+0000] {subprocess.py:93} INFO - 
+[2023-09-23T13:41:31.859+0000] {subprocess.py:93} INFO - ../../opt/***/dags/dag_scripts/tests/test_imports.py FFFFF......     [100%]
+[2023-09-23T13:41:31.861+0000] {subprocess.py:93} INFO - 
+[2023-09-23T13:41:31.863+0000] {subprocess.py:93} INFO - =================================== FAILURES ===================================
+[2023-09-23T13:41:31.864+0000] {subprocess.py:93} INFO - ___________________________ test_connections_import ____________________________
+[2023-09-23T13:41:31.864+0000] {subprocess.py:93} INFO - 
+[2023-09-23T13:41:31.865+0000] {subprocess.py:93} INFO -     def test_connections_import():
+[2023-09-23T13:41:31.866+0000] {subprocess.py:93} INFO -         """Test the db connections import works"""
+[2023-09-23T13:41:31.867+0000] {subprocess.py:93} INFO -         try:
+[2023-09-23T13:41:31.868+0000] {subprocess.py:93} INFO - >           from dag_scripts.db_connections import db_connection_funcs
+[2023-09-23T13:41:31.869+0000] {subprocess.py:93} INFO - E           ModuleNotFoundError: No module named 'dag_scripts'
+[2023-09-23T13:41:31.870+0000] {subprocess.py:93} INFO - 
+[2023-09-23T13:41:31.870+0000] {subprocess.py:93} INFO - /opt/***/dags/dag_scripts/tests/test_imports.py:15: ModuleNotFoundError
+[2023-09-23T13:41:31.871+0000] {subprocess.py:93} INFO - 
+[2023-09-23T13:41:31.871+0000] {subprocess.py:93} INFO - During handling of the above exception, another exception occurred:
+[2023-09-23T13:41:31.872+0000] {subprocess.py:93} INFO - 
+[2023-09-23T13:41:31.876+0000] {subprocess.py:93} INFO -     def test_connections_import():
+[2023-09-23T13:41:31.877+0000] {subprocess.py:93} INFO -         """Test the db connections import works"""
+[2023-09-23T13:41:31.878+0000] {subprocess.py:93} INFO -         try:
+[2023-09-23T13:41:31.878+0000] {subprocess.py:93} INFO -             from dag_scripts.db_connections import db_connection_funcs
+[2023-09-23T13:41:31.878+0000] {subprocess.py:93} INFO -         except ImportError:
+[2023-09-23T13:41:31.879+0000] {subprocess.py:93} INFO - >           assert False
+[2023-09-23T13:41:31.879+0000] {subprocess.py:93} INFO - E           assert False
+[2023-09-23T13:41:31.880+0000] {subprocess.py:93} INFO - 
+[2023-09-23T13:41:31.880+0000] {subprocess.py:93} INFO - /opt/***/dags/dag_scripts/tests/test_imports.py:17: AssertionError
+[2023-09-23T13:41:31.884+0000] {subprocess.py:93} INFO - ___________________________ test_clear_mongo_import ____________________________
+[2023-09-23T13:41:31.885+0000] {subprocess.py:93} INFO - 
+[2023-09-23T13:41:31.886+0000] {subprocess.py:93} INFO -     def test_clear_mongo_import():
+[2023-09-23T13:41:31.887+0000] {subprocess.py:93} INFO -         """Test the mongodb staging clearing import works"""
+[2023-09-23T13:41:31.888+0000] {subprocess.py:93} INFO -         try:
+[2023-09-23T13:41:31.892+0000] {subprocess.py:93} INFO - >           from dag_scripts import clear_mongodb_staging
+[2023-09-23T13:41:31.893+0000] {subprocess.py:93} INFO - E           ModuleNotFoundError: No module named 'dag_scripts'
+[2023-09-23T13:41:31.893+0000] {subprocess.py:93} INFO - 
+[2023-09-23T13:41:31.897+0000] {subprocess.py:93} INFO - /opt/***/dags/dag_scripts/tests/test_imports.py:22: ModuleNotFoundError
+[2023-09-23T13:41:31.898+0000] {subprocess.py:93} INFO - 
+[2023-09-23T13:41:31.912+0000] {subprocess.py:93} INFO - During handling of the above exception, another exception occurred:
+[2023-09-23T13:41:31.913+0000] {subprocess.py:93} INFO - 
+[2023-09-23T13:41:31.913+0000] {subprocess.py:93} INFO -     def test_clear_mongo_import():
+[2023-09-23T13:41:31.914+0000] {subprocess.py:93} INFO -         """Test the mongodb staging clearing import works"""
+[2023-09-23T13:41:31.914+0000] {subprocess.py:93} INFO -         try:
+[2023-09-23T13:41:31.914+0000] {subprocess.py:93} INFO -             from dag_scripts import clear_mongodb_staging
+[2023-09-23T13:41:31.915+0000] {subprocess.py:93} INFO -         except ImportError:
+[2023-09-23T13:41:31.915+0000] {subprocess.py:93} INFO - >           assert False
+[2023-09-23T13:41:31.915+0000] {subprocess.py:93} INFO - E           assert False
+[2023-09-23T13:41:31.915+0000] {subprocess.py:93} INFO - 
+[2023-09-23T13:41:31.916+0000] {subprocess.py:93} INFO - /opt/***/dags/dag_scripts/tests/test_imports.py:24: AssertionError
+[2023-09-23T13:41:31.916+0000] {subprocess.py:93} INFO - ___________________________ test_web_to_mongo_import ___________________________
+[2023-09-23T13:41:31.917+0000] {subprocess.py:93} INFO - 
+[2023-09-23T13:41:31.917+0000] {subprocess.py:93} INFO -     def test_web_to_mongo_import():
+[2023-09-23T13:41:31.918+0000] {subprocess.py:93} INFO -         """Test the web to mongo import works"""
+[2023-09-23T13:41:31.918+0000] {subprocess.py:93} INFO -         try:
+[2023-09-23T13:41:31.919+0000] {subprocess.py:93} INFO - >           from dag_scripts import website_to_mongodb
+[2023-09-23T13:41:31.919+0000] {subprocess.py:93} INFO - E           ModuleNotFoundError: No module named 'dag_scripts'
+[2023-09-23T13:41:31.923+0000] {subprocess.py:93} INFO - 
+[2023-09-23T13:41:31.925+0000] {subprocess.py:93} INFO - /opt/***/dags/dag_scripts/tests/test_imports.py:29: ModuleNotFoundError
+[2023-09-23T13:41:31.925+0000] {subprocess.py:93} INFO - 
+[2023-09-23T13:41:31.926+0000] {subprocess.py:93} INFO - During handling of the above exception, another exception occurred:
+[2023-09-23T13:41:31.927+0000] {subprocess.py:93} INFO - 
+[2023-09-23T13:41:31.932+0000] {subprocess.py:93} INFO -     def test_web_to_mongo_import():
+[2023-09-23T13:41:31.933+0000] {subprocess.py:93} INFO -         """Test the web to mongo import works"""
+[2023-09-23T13:41:31.933+0000] {subprocess.py:93} INFO -         try:
+[2023-09-23T13:41:31.934+0000] {subprocess.py:93} INFO -             from dag_scripts import website_to_mongodb
+[2023-09-23T13:41:31.935+0000] {subprocess.py:93} INFO -         except ImportError:
+[2023-09-23T13:41:31.940+0000] {subprocess.py:93} INFO - >           assert False
+[2023-09-23T13:41:31.962+0000] {subprocess.py:93} INFO - E           assert False
+[2023-09-23T13:41:31.965+0000] {subprocess.py:93} INFO - 
+[2023-09-23T13:41:31.965+0000] {subprocess.py:93} INFO - /opt/***/dags/dag_scripts/tests/test_imports.py:31: AssertionError
+[2023-09-23T13:41:31.972+0000] {subprocess.py:93} INFO - ________________________ test_mongo_to_postgres_import _________________________
+[2023-09-23T13:41:31.972+0000] {subprocess.py:93} INFO - 
+[2023-09-23T13:41:31.973+0000] {subprocess.py:93} INFO -     def test_mongo_to_postgres_import():
+[2023-09-23T13:41:31.973+0000] {subprocess.py:93} INFO -         """Test the web to mongo import works"""
+[2023-09-23T13:41:31.974+0000] {subprocess.py:93} INFO -         try:
+[2023-09-23T13:41:31.977+0000] {subprocess.py:93} INFO - >           from dag_scripts import mongodb_to_postgres
+[2023-09-23T13:41:31.978+0000] {subprocess.py:93} INFO - E           ModuleNotFoundError: No module named 'dag_scripts'
+[2023-09-23T13:41:31.978+0000] {subprocess.py:93} INFO - 
+[2023-09-23T13:41:31.979+0000] {subprocess.py:93} INFO - /opt/***/dags/dag_scripts/tests/test_imports.py:36: ModuleNotFoundError
+[2023-09-23T13:41:31.981+0000] {subprocess.py:93} INFO - 
+[2023-09-23T13:41:31.983+0000] {subprocess.py:93} INFO - During handling of the above exception, another exception occurred:
+[2023-09-23T13:41:31.983+0000] {subprocess.py:93} INFO - 
+[2023-09-23T13:41:31.985+0000] {subprocess.py:93} INFO -     def test_mongo_to_postgres_import():
+[2023-09-23T13:41:31.987+0000] {subprocess.py:93} INFO -         """Test the web to mongo import works"""
+[2023-09-23T13:41:31.988+0000] {subprocess.py:93} INFO -         try:
+[2023-09-23T13:41:31.988+0000] {subprocess.py:93} INFO -             from dag_scripts import mongodb_to_postgres
+[2023-09-23T13:41:31.989+0000] {subprocess.py:93} INFO -         except ImportError:
+[2023-09-23T13:41:31.989+0000] {subprocess.py:93} INFO - >           assert False
+[2023-09-23T13:41:31.990+0000] {subprocess.py:93} INFO - E           assert False
+[2023-09-23T13:41:31.992+0000] {subprocess.py:93} INFO - 
+[2023-09-23T13:41:31.992+0000] {subprocess.py:93} INFO - /opt/***/dags/dag_scripts/tests/test_imports.py:38: AssertionError
+[2023-09-23T13:41:31.993+0000] {subprocess.py:93} INFO - ________________________ test_postgres_to_redis_import _________________________
+[2023-09-23T13:41:31.993+0000] {subprocess.py:93} INFO - 
+[2023-09-23T13:41:31.993+0000] {subprocess.py:93} INFO -     def test_postgres_to_redis_import():
+[2023-09-23T13:41:31.994+0000] {subprocess.py:93} INFO -         """Test the web to mongo import works"""
+[2023-09-23T13:41:31.994+0000] {subprocess.py:93} INFO -         try:
+[2023-09-23T13:41:32.026+0000] {subprocess.py:93} INFO - >           from dag_scripts import mongodb_to_postgres
+[2023-09-23T13:41:32.027+0000] {subprocess.py:93} INFO - E           ModuleNotFoundError: No module named 'dag_scripts'
+[2023-09-23T13:41:32.035+0000] {subprocess.py:93} INFO - 
+[2023-09-23T13:41:32.036+0000] {subprocess.py:93} INFO - /opt/***/dags/dag_scripts/tests/test_imports.py:43: ModuleNotFoundError
+[2023-09-23T13:41:32.036+0000] {subprocess.py:93} INFO - 
+[2023-09-23T13:41:32.038+0000] {subprocess.py:93} INFO - During handling of the above exception, another exception occurred:
+[2023-09-23T13:41:32.038+0000] {subprocess.py:93} INFO - 
+[2023-09-23T13:41:32.039+0000] {subprocess.py:93} INFO -     def test_postgres_to_redis_import():
+[2023-09-23T13:41:32.040+0000] {subprocess.py:93} INFO -         """Test the web to mongo import works"""
+[2023-09-23T13:41:32.062+0000] {subprocess.py:93} INFO -         try:
+[2023-09-23T13:41:32.064+0000] {subprocess.py:93} INFO -             from dag_scripts import mongodb_to_postgres
+[2023-09-23T13:41:32.119+0000] {subprocess.py:93} INFO -         except ImportError:
+[2023-09-23T13:41:32.121+0000] {subprocess.py:93} INFO - >           assert False
+[2023-09-23T13:41:32.122+0000] {subprocess.py:93} INFO - E           assert False
+[2023-09-23T13:41:32.123+0000] {subprocess.py:93} INFO - 
+[2023-09-23T13:41:32.123+0000] {subprocess.py:93} INFO - /opt/***/dags/dag_scripts/tests/test_imports.py:45: AssertionError
+[2023-09-23T13:41:32.124+0000] {subprocess.py:93} INFO - =========================== short test summary info ============================
+[2023-09-23T13:41:32.124+0000] {subprocess.py:93} INFO - FAILED ../../opt/***/dags/dag_scripts/tests/test_imports.py::test_connections_import
+[2023-09-23T13:41:32.125+0000] {subprocess.py:93} INFO - FAILED ../../opt/***/dags/dag_scripts/tests/test_imports.py::test_clear_mongo_import
+[2023-09-23T13:41:32.126+0000] {subprocess.py:93} INFO - FAILED ../../opt/***/dags/dag_scripts/tests/test_imports.py::test_web_to_mongo_import
+[2023-09-23T13:41:32.127+0000] {subprocess.py:93} INFO - FAILED ../../opt/***/dags/dag_scripts/tests/test_imports.py::test_mongo_to_postgres_import
+[2023-09-23T13:41:32.127+0000] {subprocess.py:93} INFO - FAILED ../../opt/***/dags/dag_scripts/tests/test_imports.py::test_postgres_to_redis_import
+[2023-09-23T13:41:32.130+0000] {subprocess.py:93} INFO - ========================= 5 failed, 6 passed in 2.31s ==========================
+[2023-09-23T13:41:32.449+0000] {subprocess.py:97} INFO - Command exited with return code 1
+[2023-09-23T13:41:32.504+0000] {taskinstance.py:1935} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/bash.py", line 210, in execute
+    raise AirflowException(
+airflow.exceptions.AirflowException: Bash command failed. The command returned a non-zero exit code 1.
+[2023-09-23T13:41:32.522+0000] {taskinstance.py:1398} INFO - Marking task as FAILED. dag_id=tests_dag, task_id=test_imports, execution_date=20230923T134125, start_date=20230923T134128, end_date=20230923T134132
+[2023-09-23T13:41:32.638+0000] {standard_task_runner.py:104} ERROR - Failed to execute job 6 for task test_imports (Bash command failed. The command returned a non-zero exit code 1.; 365)
+[2023-09-23T13:41:32.677+0000] {local_task_job_runner.py:228} INFO - Task exited with return code 1
+[2023-09-23T13:41:32.788+0000] {taskinstance.py:2776} INFO - 0 downstream tasks scheduled from follow-on schedule check

@@ -1,0 +1,52 @@
+[2023-09-23T14:11:22.859+0000] {taskinstance.py:1157} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: tests_dag.test_mongodb_clear manual__2023-09-23T14:11:09.855644+00:00 [queued]>
+[2023-09-23T14:11:22.885+0000] {taskinstance.py:1157} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: tests_dag.test_mongodb_clear manual__2023-09-23T14:11:09.855644+00:00 [queued]>
+[2023-09-23T14:11:22.887+0000] {taskinstance.py:1359} INFO - Starting attempt 1 of 1
+[2023-09-23T14:11:22.955+0000] {taskinstance.py:1380} INFO - Executing <Task(BashOperator): test_mongodb_clear> on 2023-09-23 14:11:09.855644+00:00
+[2023-09-23T14:11:22.965+0000] {standard_task_runner.py:57} INFO - Started process 1040 to run task
+[2023-09-23T14:11:22.992+0000] {standard_task_runner.py:84} INFO - Running: ['***', 'tasks', 'run', 'tests_dag', 'test_mongodb_clear', 'manual__2023-09-23T14:11:09.855644+00:00', '--job-id', '25', '--raw', '--subdir', 'DAGS_FOLDER/test_dag.py', '--cfg-path', '/tmp/tmpvpi8v35s']
+[2023-09-23T14:11:22.997+0000] {standard_task_runner.py:85} INFO - Job 25: Subtask test_mongodb_clear
+[2023-09-23T14:11:23.364+0000] {task_command.py:415} INFO - Running <TaskInstance: tests_dag.test_mongodb_clear manual__2023-09-23T14:11:09.855644+00:00 [running]> on host 4ef300bfa8d2
+[2023-09-23T14:11:23.700+0000] {taskinstance.py:1660} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='tests_dag' AIRFLOW_CTX_TASK_ID='test_mongodb_clear' AIRFLOW_CTX_EXECUTION_DATE='2023-09-23T14:11:09.855644+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2023-09-23T14:11:09.855644+00:00'
+[2023-09-23T14:11:23.703+0000] {subprocess.py:63} INFO - Tmp dir root location: /tmp
+[2023-09-23T14:11:23.704+0000] {subprocess.py:75} INFO - Running command: ['/bin/bash', '-c', 'pytest /opt/***/dags/dag_scripts/tests/test_mongodb_clear.py']
+[2023-09-23T14:11:23.726+0000] {subprocess.py:86} INFO - Output:
+[2023-09-23T14:11:26.862+0000] {subprocess.py:93} INFO - ============================= test session starts ==============================
+[2023-09-23T14:11:26.864+0000] {subprocess.py:93} INFO - platform linux -- Python 3.8.18, pytest-7.4.2, pluggy-1.3.0
+[2023-09-23T14:11:26.865+0000] {subprocess.py:93} INFO - rootdir: /opt/***/dags/dag_scripts/tests
+[2023-09-23T14:11:26.866+0000] {subprocess.py:93} INFO - plugins: anyio-4.0.0
+[2023-09-23T14:11:26.869+0000] {subprocess.py:93} INFO - collected 1 item
+[2023-09-23T14:11:26.871+0000] {subprocess.py:93} INFO - 
+[2023-09-23T14:11:27.324+0000] {subprocess.py:93} INFO - ../../opt/***/dags/dag_scripts/tests/test_mongodb_clear.py F         [100%]
+[2023-09-23T14:11:27.326+0000] {subprocess.py:93} INFO - 
+[2023-09-23T14:11:27.328+0000] {subprocess.py:93} INFO - =================================== FAILURES ===================================
+[2023-09-23T14:11:27.329+0000] {subprocess.py:93} INFO - ____________________________ test_mongo_db_cleared _____________________________
+[2023-09-23T14:11:27.330+0000] {subprocess.py:93} INFO - 
+[2023-09-23T14:11:27.331+0000] {subprocess.py:93} INFO -     def test_mongo_db_cleared():
+[2023-09-23T14:11:27.332+0000] {subprocess.py:93} INFO -         """Tests that the mongodb staging collection is cleared properly"""
+[2023-09-23T14:11:27.334+0000] {subprocess.py:93} INFO -         mongo_client = db_connection_funcs.get_mongodb_client()
+[2023-09-23T14:11:27.336+0000] {subprocess.py:93} INFO -         mongo_database = db_connection_funcs.get_mongodb_database(mongo_client)
+[2023-09-23T14:11:27.338+0000] {subprocess.py:93} INFO -         mongo_collection = db_connection_funcs.get_mongodb_collection(mongo_database)
+[2023-09-23T14:11:27.340+0000] {subprocess.py:93} INFO - 
+[2023-09-23T14:11:27.342+0000] {subprocess.py:93} INFO -         test_json_document = {
+[2023-09-23T14:11:27.343+0000] {subprocess.py:93} INFO -         "first_name": "Bruce",
+[2023-09-23T14:11:27.345+0000] {subprocess.py:93} INFO -         "last_name": "Wayne"
+[2023-09-23T14:11:27.346+0000] {subprocess.py:93} INFO -         }
+[2023-09-23T14:11:27.347+0000] {subprocess.py:93} INFO - 
+[2023-09-23T14:11:27.348+0000] {subprocess.py:93} INFO -         mongo_collection.insert_one(test_json_document)
+[2023-09-23T14:11:27.349+0000] {subprocess.py:93} INFO - >       clear_mongodb_staging()
+[2023-09-23T14:11:27.351+0000] {subprocess.py:93} INFO - E       TypeError: 'module' object is not callable
+[2023-09-23T14:11:27.353+0000] {subprocess.py:93} INFO - 
+[2023-09-23T14:11:27.355+0000] {subprocess.py:93} INFO - /opt/***/dags/dag_scripts/tests/test_mongodb_clear.py:20: TypeError
+[2023-09-23T14:11:27.357+0000] {subprocess.py:93} INFO - =========================== short test summary info ============================
+[2023-09-23T14:11:27.359+0000] {subprocess.py:93} INFO - FAILED ../../opt/***/dags/dag_scripts/tests/test_mongodb_clear.py::test_mongo_db_cleared
+[2023-09-23T14:11:27.360+0000] {subprocess.py:93} INFO - ============================== 1 failed in 2.31s ===============================
+[2023-09-23T14:11:27.959+0000] {subprocess.py:97} INFO - Command exited with return code 1
+[2023-09-23T14:11:28.009+0000] {taskinstance.py:1935} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/bash.py", line 210, in execute
+    raise AirflowException(
+airflow.exceptions.AirflowException: Bash command failed. The command returned a non-zero exit code 1.
+[2023-09-23T14:11:28.025+0000] {taskinstance.py:1398} INFO - Marking task as FAILED. dag_id=tests_dag, task_id=test_mongodb_clear, execution_date=20230923T141109, start_date=20230923T141122, end_date=20230923T141128
+[2023-09-23T14:11:28.108+0000] {standard_task_runner.py:104} ERROR - Failed to execute job 25 for task test_mongodb_clear (Bash command failed. The command returned a non-zero exit code 1.; 1040)
+[2023-09-23T14:11:28.135+0000] {local_task_job_runner.py:228} INFO - Task exited with return code 1
+[2023-09-23T14:11:28.196+0000] {taskinstance.py:2776} INFO - 0 downstream tasks scheduled from follow-on schedule check

@@ -15,10 +15,10 @@ To keep costs down I have chosen a dockerised approach rather than using cloud s
 
 There is no API available on the Coles (supermarket) website so web scraping is necessary for this project. Please see the "A Note On Ethical Web Scraping" section below. 
 
+Python tests for scripts are available in the dags/dag_scripts/tests folder
+
 To Do:
 * Add dbt tests
-* Add python tests
-* Add a bit more error handling
 
 # Data Pipeline Architecture
 ![pipeline_architecture](Images/architecture_diagram_2.png)
@@ -26,8 +26,12 @@ To Do:
 # PostgreSQL / dbt Data Model
 ![pipeline_architecture](Images/data_model_diagram_2.png)
 
-# Airflow DAG
+# Airflow DAGs
+Main DAG:
 ![pipeline_architecture](Images/DAG.png)
+
+Tests DAG:
+![pipeline_architecture](Images/tests_dag.png)
 
 # A Note On Ethical Web Scraping
 As part of ethical web scraping practices please note the following:
