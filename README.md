@@ -28,9 +28,10 @@ To Do:
 
 # Airflow DAGs
 Main DAG:
+
 ![pipeline_architecture](Images/DAG.png)
 
-Tests DAG:\
+Tests DAG:
 
 ![pipeline_architecture](Images/tests_dag.png)
 
