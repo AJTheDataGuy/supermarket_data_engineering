@@ -17,9 +17,6 @@ There is no API available on the Coles (supermarket) website so web scraping is 
 
 Python tests for scripts are available in the dags/dag_scripts/tests folder
 
-To Do:
-* Add dbt tests
-
 # Data Pipeline Architecture
 ![pipeline_architecture](Images/architecture_diagram_2.png)
 

@@ -1,3 +1,4 @@
 db_connections
 tests
 dag_scripts
+**/__pycache__

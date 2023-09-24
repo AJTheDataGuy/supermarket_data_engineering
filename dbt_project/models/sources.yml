@@ -11,13 +11,19 @@ sources:
         columns:
           - name: _id
             description: Unique document id from MongoDB. Corresponds to one item at one specific date.
+            tests:
+              - dbt_expectations.expect_column_to_exist
           
           - name: _type
             description: Always PRODUCT.
           
           - name: id
             description: Unique id of the supermarket item - carrot, appple, etc. Should remain the same every week.
-          
+            tests:
+              - dbt_expectations.expect_column_to_exist
+              - dbt_expectations.expect_column_values_to_be_of_type:
+                  column_type: integer
+
           - name: adId
             description: Unknown description - defined by Coles. Appears to always be null.
           
@@ -26,19 +32,29 @@ sources:
           
           - name: featured
             description: Boolean true / false on whether the item is featured on the Coles website
-          
+            tests:
+            - dbt_expectations.expect_column_to_exist
+            - dbt_expectations.expect_column_values_to_be_of_type:
+                column_type: boolean
+
           - name: name
             description: Supermarket item name - carrots, apples, etc.
-          
+            tests:
+              - dbt_expectations.expect_column_to_exist
+              
           - name: brand
             description: Supermarket item brand - should always be Coles for fruits and vegetables
           
           - name: description
             description: Item description 1 - name and sizing combined
+            tests:
+              - dbt_expectations.expect_column_to_exist
           
           - name: size
             description: Sizing associated with the current price - price.now column
-          
+            tests:
+              - dbt_expectations.expect_column_to_exist
+
           - name: availability
             description: Boolean True / False on whether the item is available
           
@@ -56,7 +72,11 @@ sources:
           
           - name: date_extracted
             description: Date the data was pulled from the Cole website
-          
+            tests:
+              - dbt_expectations.expect_column_to_exist
+              - dbt_expectations.expect_column_values_to_be_of_type:
+                  column_type: date
+
           - name: restrictions.retailLimit
             description: Unknown description - defined by Coles.
           
@@ -77,74 +97,141 @@ sources:
           
           - name: merchandiseHeir.tradeProfitCentre
             description: Item definition 2 - appears to always be FRESH PROD
+            tests:
+              - dbt_expectations.expect_column_to_exist
           
           - name: merchandiseHeir.categoryGroup
             description: Item Description 3 - whether the item is a fruit or vegetable / salad
-          
+            tests:
+              - dbt_expectations.expect_column_to_exist
+
           - name: merchandiseHeir.category
             description: Item Description 4 - broad item category such as whether the item is a soft or hard vegetable
-          
+            tests:
+              - dbt_expectations.expect_column_to_exist
+            
           - name: merchandiseHeir.subCategory
             description: Item Description 5- more defined item definiton such as whether the item is an apple or pumpkin
-          
+            tests:
+              - dbt_expectations.expect_column_to_exist
+
           - name: merchandiseHeir.className
             description: Item Description 6- Narrowest item definition - for example whether an apple is a pink lady or gala type. Contains some redundant data with the merchandiseHeir.subCategory column
-          
+            tests:
+              - dbt_expectations.expect_column_to_exist
+
           - name: pricing.now
             description: Current price in $AUD. Size for current price is given in the size column and the pricing.unit.quantity and pricing.unit.ofMeasureQuantity columns
-          
+            tests:
+              - dbt_expectations.expect_column_to_exist
+              - dbt_expectations.expect_column_values_to_be_of_type:
+                  column_type: numeric
+
           - name: pricing.was
             description: Should be previous price in $AUD but always listed as 0. May not be used.
-          
+            tests:
+              - dbt_expectations.expect_column_to_exist
+              - dbt_expectations.expect_column_values_to_be_of_type:
+                  column_type: numeric
+
           - name: pricing.unit.quantity
             description: Appears to represent the size (numeric quantity in $AUD) associated with the price.now column but does not always appear to be accurate. The size columns appears to be more accurate. Associated with unit in the pricing.unit.ofMeasureUnit columns
-          
+            tests:
+              - dbt_expectations.expect_column_to_exist
+              - dbt_expectations.expect_column_values_to_be_of_type:
+                  column_type: integer
+
           - name: pricing.unit.ofMeasureQuantity
             description: Appears to be a multiplier for the pricing.unit.quantity column but always appears to be 1
-          
+            tests:
+              - dbt_expectations.expect_column_to_exist
+              - dbt_expectations.expect_column_values_to_be_of_type:
+                  column_type: integer
+
           - name: pricing.unit.ofMeasureUnits
             description: Appears to represent the standard pricing unit for the item but appears redundant with the pricing.unit.ofMeasureType column
-          
+            tests:
+              - dbt_expectations.expect_column_to_exist
+
           - name: pricing.unit.price
             description: Standard basis price in $AUD for item pricing. For example, while unit may be sold in 200g, the item may be priced on a standard 1 kg size. Standard size as per the pricing.unit.ofMeasureType column.
-          
+            tests:
+              - dbt_expectations.expect_column_to_exist
+              - dbt_expectations.expect_column_values_to_be_of_type:
+                  column_type: numeric
+
           - name: pricing.unit.ofMeasureType
             description: Standard basis size for item pricing. For example, while unit may be sold in 200g, the item may be priced on a standard 1 kg size. Standard price as per the pricing.unit.price column.
-          
+            tests:
+              - dbt_expectations.expect_column_to_exist
+
           - name: pricing.unit.isWeighted
             description: Unknown description - defined by Coles.
-          
+            tests:
+              - dbt_expectations.expect_column_to_exist
+              - dbt_expectations.expect_column_values_to_be_of_type:
+                  column_type: boolean
+
           - name: pricing.comparable
             description: Standard unit pricing and size. Contains redundant data from the pricing.unit.price and pricing.unit.ofMeasureType columns
-          
+            tests:
+              - dbt_expectations.expect_column_to_exist
+
           - name: pricing.onlineSpecial
             description: Boolean True / False on whether there is an online special. Appears to always be false despite a special being present.
-          
+            tests:
+              - dbt_expectations.expect_column_to_exist
+              - dbt_expectations.expect_column_values_to_be_of_type:
+                  column_type: boolean
+
           - name: pricing.promotionType
             description: Type of special - for example whether just a special or a locked in price
-          
+            tests:
+              - dbt_expectations.expect_column_to_exist
+
           - name: internalDescription
             description: Unknown description - defined by Coles.
-          
+            tests:
+              - dbt_expectations.expect_column_to_exist
+
           - name: pricing.specialType
             description: More detailed description for type of special such as whether it is a multi save. Data may be presnt without a corresponding value in the pricing.PromotionType column.
-          
+            tests:
+              - dbt_expectations.expect_column_to_exist
+
           - name: pricing.offerDescription
             description: Description of the special - for example, get 2 for $5.
-          
+            tests:
+              - dbt_expectations.expect_column_to_exist
+
           - name: pricing.multiBuyPromotion.type
             description: Type of multi buy promotion when there is a multi buy promotion
-          
+            tests:
+              - dbt_expectations.expect_column_to_exist
+
           - name: pricing.multiBuyPromotion.id
             description: Type of multi buy promotion when there is a multi buy promotion. Appears to not be unique.
-          
+            tests:
+              - dbt_expectations.expect_column_to_exist
+              - dbt_expectations.expect_column_values_to_be_of_type:
+                  column_type: integer
+
           - name: pricing.multiBuyPromotion.minQuantity
             description: Appears to be minimum quantity of item needed to purchase to get the special
-          
+            tests:
+              - dbt_expectations.expect_column_to_exist
+              - dbt_expectations.expect_column_values_to_be_of_type:
+                  column_type: integer
+
           - name: pricing.multiBuyPromotion.reward
             description: Appears to be the amount you save (in $AUD) when using the special vs what you would normally pay.
-          
+            tests:
+              - dbt_expectations.expect_column_to_exist
+              - dbt_expectations.expect_column_values_to_be_of_type:
+                  column_type: numeric
+
           - name: pricing.promotionDescription
             description: How long the promotion lasts - for example Until August 1st.
-
+            tests:
+              - dbt_expectations.expect_column_to_exist
             

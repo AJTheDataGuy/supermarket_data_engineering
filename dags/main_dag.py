@@ -46,6 +46,7 @@ with DAG(
                 project_dir="/dbt_project"):
         return BashOperator(task_id=task_id,
                             bash_command=f"dbt run --profiles-dir {profiles_dir} --project-dir {project_dir}")
+
     def dbt_test(task_id="dbt_run_tests",
                 profiles_dir="/.dbt",
                 project_dir="/dbt_project"):
@@ -62,9 +63,9 @@ with DAG(
         website_to_mongo()>> \
             mongo_to_postgres()>>\
                 install_dbt_deps()>>\
-                  run_dbt()>> \
-                    dbt_test()>>\
-                        posgressql_to_redis()
+                    run_dbt()>> \
+                        dbt_test()>>\
+                            posgressql_to_redis()
 
 
     
