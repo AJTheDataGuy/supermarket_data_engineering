@@ -28,6 +28,7 @@ from datetime import date
 import json
 import logging
 import re
+from random import randint
 from time import sleep
 from typing import Pattern
 import requests
@@ -35,8 +36,9 @@ import requests
 # Custom modules
 from dag_scripts.db_connections import db_connection_funcs
 
-REQUEST_PADDING_TIME = 3
-
+# Globals
+MIN_PAGE_REQUEST_DELAY = 30 # seconds
+MAX_PAGE_REQUEST_DELAY = 80 # seconds
 
 def main():
     """main"""
@@ -49,7 +51,7 @@ def main():
     mongodb_collection = db_connection_funcs.get_mongodb_collection(mongodb_database)
 
     for webpage in webpages_list:
-        sleep(REQUEST_PADDING_TIME)
+        sleep(randint(MIN_PAGE_REQUEST_DELAY,MAX_PAGE_REQUEST_DELAY))
         # Extract
         raw_webpage_text_str = extract_single_webpage_text(webpage, session)
         found_json_text_list = re.findall(json_regex, raw_webpage_text_str)
@@ -219,6 +221,15 @@ def create_paginated_webpages_list(
     paginated_webpages = ["".join([template_url_str, page]) for page in str_pages]
 
     return paginated_webpages
+
+def get_session_with_header()->requests.Session:
+    """Returns a session object with a predefined
+    user agent header.
+    """
+    session = requests.Session()
+    headers = {"User-Agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/601.3.9 (KHTML, like Gecko) Version/9.0.2 Safari/601.3.9"}
+    session.headers.update(headers)
+    return session
 
 
 if __name__ == "__main__":

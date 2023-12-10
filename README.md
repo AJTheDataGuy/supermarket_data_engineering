@@ -1,6 +1,6 @@
 # Introduction
 
-This project retrieves supermarket pricing and product specials data on a weekly basis and loads it into a data mart. As a portfolio piece, this project is intended to demonstrate my proficiency with a number of data engineering technologies including:
+This project retrieves supermarket pricing and product specials data on a weekly basis and loads it into a data mart. Really I just wanted to have fun while building something with the following technologies:
 
 * Apache Airflow
 * Docker
@@ -35,8 +35,8 @@ Tests DAG:
 # A Note On Ethical Web Scraping
 As part of ethical web scraping practices please note the following:
 
-* Coles is the sole owner of all data used in this project. With the exception of a small single week sample dataset to illustrate the data in each PostgreSQL table, I have not included week-on-week pricing data for further analysis. Data collected in this project is strictly to demonstrate data engineering principles and is not to be used for commercial purposes. By using this git repository you must agree not to use collected data for commercial purposes. 
+* Coles is the sole owner of all data used in this project. With the exception of a small single week sample dataset to illustrate the data in each PostgreSQL table, I have not included week-on-week pricing data for further analysis. Data collected in this project is strictly for a fun hobby project and is not to be used for commercial purposes. By using this git repository you must agree not to use collected data for commercial purposes. 
 * I consulted the Coles robots.txt page before starting this project. The pages used for web scraping are not included in the robots.txt page.
 * I have limited the scope of this project to just retrieve data for fruits and vegetables - about 15 requests to the Coles website per week, on par with what a human might request. The original scope of this project included all products on the entire Coles website but was trimmed to reduce the number of requests to the Coles web server.
-* I have designed my Python script to process (extract JSON from) each web page directly after sending the request. I have added a sleep statement between requests as a courtesty to avoid overloading the Coles web server.
+* I have added a random sleep statement of 30-80 seconds between requests as a courtesty to avoid overloading the Coles web server.
 
